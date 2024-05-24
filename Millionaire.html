@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>
+        Завдання:
+        Гра «Як стати мільйонером».
+        Подумайте, як можна реалізувати подібний сценарій з
+        використанням масивів та об'єктів. Пам'ятайте, що для кожного
+        запитання потрібно прописати: запитання, 4 варіанти відповіді,
+        правильну відповідь (яку порівнюватимемо з тим, що ввів
+        користувач), сума, яку виграв користувач. Визначте щонайменше 5
+        9 питань. Запитання з варіантами відповідей ви можете вигадати
+        самостійно, а можете скористатися пошуком.
+
+    </pre>
+  <script>
+
+    let game = {
+      total_prize: 0,
+
+      questions: [
+        {
+          question: "Який вид спорту згадують в Данії, кажучи про надто опікуючих батьків?",
+          answer: "b",
+          answer_options: {
+            a: "биатлон",
+            b: "керлинг",
+            c: "хоккей",
+            d: "футбол"
+          },
+          prize: 500
+        },
+        {
+          question: "Що робить англієць, закликаючи співрозмовника зберігати таємницю?",
+          answer: "c",
+          answer_options: {
+            a: "розтирає скроню",
+            b: "погладжує щоку",
+            c: "постукує по носу",
+            d: "смикає вухо"
+          },
+          prize: 500
+        },
+        {
+          question: "Що не входило в обов'язки перших в історії стюардес?",
+          answer: "b",
+          answer_options: {
+            a: "розмовляти з пасажирами",
+            b: "годувати пасажирів",
+            c: "носити багаж",
+            d: "знешкоджувати мух"
+          },
+          prize: 1000
+        },
+        {
+          question: "Що знаходилось всередині чарівної палички Гаррі Поттера?",
+          answer: "b",
+          answer_options: {
+            a: "волосся єдинорога",
+            b: "перо фенікса",
+            c: "жила дракона",
+            d: "квітка папоротника"
+          },
+          prize: 1000
+        },
+        {
+          question: "Що Християн Діор радив носити жінкам з довгими ногами?",
+          answer: "d",
+          answer_options: {
+            a: "довгі брюки",
+            b: "довге волосся",
+            c: "високі підбори",
+            d: "глибоке декольте"
+          },
+          prize: 2000
+        },
+      ],
+
+      getFarewellWords: function () {
+        let farewell_words = "Ваш загальний виграш: " + this.getTotalPrize() + ". На все добре."
+        return farewell_words;
+      },
+
+      getTotalPrize: function () {
+        return this.total_prize;
+      },
+
+      checkResult: function (result, indexOfCicle) {
+
+        const element = this.questions[indexOfCicle];
+        if (element.answer === result) {
+          this.total_prize += element.prize;
+          return true;
+        }
+        return false;
+
+      },
+
+      playGame: function () {
+
+        for (let i = 0; i < this.questions.length; i++) {
+          const element = this.questions[i];
+          let line = "";
+          for (var key in element.answer_options) {
+            line += key + ": " + element.answer_options[key] + "\n";
+          }
+          let question_line = "Введіть літеру, що відповідає правильному варіанту відповіді. " + "\n" + element.question + "\n" + line;
+
+          const regex = /^[abcd]+$/;
+          let isValid = false;
+          let answer = prompt(question_line).trim();
+
+          isValid = regex.test(answer);
+          if (!isValid) {
+            alert("Варіант відповіді не з вказаного діапазону літер!");
+            continue;
+          }
+          else {
+            let isRight = this.checkResult(answer, i);
+            if ((i != this.questions.length-1) && (!isRight || !confirm("Відповідь вірна! Бажаєте продовжити гру?"))) {
+              alert("Ви програли! " + this.getFarewellWords());
+              return;
+            }
+            
+          }
+        }
+        alert("Вітаємо переможця! " + this.getFarewellWords());
+      }
+    }
+
+    game.playGame();
+
+
+  </script>
+</body>
+
+</html>

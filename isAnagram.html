@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task 1</title>
+</head>
+
+<body>
+    <pre>
+        Завдання:
+        Напишіть функцію, яка порівнює два рядки та визначає, чи є вони
+        анаграмою (слова складаються з одних і тих самих букв). Рядки
+        отримуємо від користувача за допомогою 2-х методів prompt.
+    </pre>
+    <script>
+        
+        const regex = /^[A-Za-zА-Яа-я\d]+$/; 
+
+        let isValid1;
+        let isValid2;
+        let word1;
+        let word2;
+        do {
+            word1 = prompt("Введіть перше слово");
+            word2 = prompt("Введіть друге слово");
+            isValid1 = regex.test(word1);
+            isValid2 = regex.test(word2);
+
+        } while (isValid1 === false || isValid2 === false)
+
+
+        if (isAnagram(word1, word2)) {
+            alert("Введені слова є анаграмами!")
+        }
+        else {
+            alert("Введені слова не є анаграмами!")
+        }
+
+        function isAnagram(word1, word2) {
+            let arr1 = word1.split('');
+            let arr2 = word2.split('');
+            for (let i = 0; i < arr1.length; i++) {
+                for (let j = 0; j < arr2.length; j++) {
+                    if (arr1[i] === arr2[j]) {
+                        arr2.splice(j, 1);
+                        break;
+                    }
+                }
+                if (arr2.length === 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    </script>
+</body>
+
+</html>
