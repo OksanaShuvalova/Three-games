@@ -1,0 +1,1 @@
+Here are three simple games written in JavaScript. The first is checking whether the entered string is a palindrome. The second is to check whether the two strings entered are anagrams. The third is a simplified game "How to become a millionaire"
